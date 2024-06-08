@@ -16,7 +16,7 @@ class Pasajero
         $this->numTelefono = '';
     }
 
-    public function cargar(){
+    public function cargar($nombre, $apellido, $numeroDoc, $numTelefono){
         $this->setNombre($nombre);
         $this->setApellido($apellido);
         $this->setNumeroDocumento($numeroDoc);
@@ -88,13 +88,13 @@ class Pasajero
 				$arregloPersona = array();
 				while ($row2 = $base->Registro()) {
 
-					$NroDoc = $row2['nrodoc'];
-					$Nombre = $row2['nombre'];
-					$Apellido = $row2['apellido'];
-					$Email = $row2['email'];
+					$nombre = $row2['nrodoc'];
+					$apellido = $row2['nombre'];
+					$numeroDoc = $row2['apellido'];
+					$numTelefono = $row2['email'];
 
 					$perso = new Pasajero();
-					$perso->cargar($NroDoc, $Nombre, $Apellido, $Email);
+					$perso->cargar($nombre, $apellido, $numeroDoc, $numTelefono);
 					array_push($arregloPersona, $perso);
 				}
 			} else {
@@ -110,8 +110,8 @@ class Pasajero
     public function __toString()
     {
         return " 
-Nombre: {$this->getNombre()}
-Apellido: {$this->getApellido()}
+apellido: {$this->getNombre()}
+nombre: {$this->getApellido()}
 Numero de Telefono: {$this->getNumeroTelefono()}
 Numero DNI: {$this->getNumeroDocumento()}
 ------------------------";
