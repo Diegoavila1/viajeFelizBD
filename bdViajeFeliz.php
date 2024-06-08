@@ -25,7 +25,7 @@ class bdViajeFeliz{
     }
     /**
      * Funcion que retorna una cadena
-     * con una peque�a descripcion del error si lo hubiera
+     * con una pequea descripcion del error si lo hubiera
      *
      * @return string
      */
@@ -49,10 +49,10 @@ class bdViajeFeliz{
                 unset($this->ERROR);
                 $resp = true;
             }  else {
-                $this->ERROR = mysqli_errno($conexion) . ": " .mysqli_error($conexion);
+                $this->ERROR = mysqli_errno($conexion) . ": " .mysqli_errno($conexion);
             }
         }else{
-            $this->ERROR =  mysqli_errno($conexion) . ": " .mysqli_error($conexion);
+            $this->ERROR =  mysqli_errno($conexion) . ": " .mysqli_errno($conexion);
         }
         return $resp;
     }
@@ -116,11 +116,6 @@ class bdViajeFeliz{
            
         }
     return $resp;
-    }
-
-    public function __toString()
-    {
-        return 'esto es la base de datos :D';
     }
     
 }
