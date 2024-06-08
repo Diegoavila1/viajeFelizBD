@@ -6,6 +6,7 @@ class Pasajero
     private $apellido;
     private $numeroDoc;
     private $numTelefono;
+    private $idviaje;
     private $mensajeoperacion;
 
     public function __construct()
@@ -16,11 +17,12 @@ class Pasajero
         $this->numTelefono = '';
     }
 
-    public function cargar($nombre, $apellido, $numeroDoc, $numTelefono){
+    public function cargar($nombre, $apellido, $numeroDoc, $numTelefono, $idviaje){
         $this->setNombre($nombre);
         $this->setApellido($apellido);
         $this->setNumeroDocumento($numeroDoc);
         $this->setNumeroTelefono($numTelefono);
+        $this->setIdviaje($idviaje);
     }
 
     public function getNombre()
@@ -73,11 +75,19 @@ class Pasajero
         return $this->mensajeoperacion;
     }
 
+    public function getIdviaje(){
+        return $this->idviaje;
+    }
+
+    public function setIdviaje($idviaje){
+        $this->idviaje = $idviaje;
+    }
+
     public static function listar($condicion = "")
 	{
 		$arregloPersona = null;
 		$base = new bdViajeFeliz();
-		$consultaPersonas = "Select * from persona";
+		$consultaPersonas = "Select * from Pasajero";
 		if ($condicion != "") {
 			$consultaPersonas = $consultaPersonas . ' where ' . $condicion;
 		}
@@ -88,13 +98,14 @@ class Pasajero
 				$arregloPersona = array();
 				while ($row2 = $base->Registro()) {
 
-					$nombre = $row2['nrodoc'];
-					$apellido = $row2['nombre'];
-					$numeroDoc = $row2['apellido'];
-					$numTelefono = $row2['email'];
+					$nombre = $row2['pdocumento'];
+					$apellido = $row2['pnombre'];
+					$numeroDoc = $row2['papellido'];
+					$numTelefono = $row2['ptelefono'];
+                    $idviaje = $row2['idviaje'];
 
 					$perso = new Pasajero();
-					$perso->cargar($nombre, $apellido, $numeroDoc, $numTelefono);
+					$perso->cargar($nombre, $apellido, $numeroDoc, $numTelefono, $idviaje);
 					array_push($arregloPersona, $perso);
 				}
 			} else {
@@ -104,6 +115,25 @@ class Pasajero
 			$this->setmensajeoperacion($base->getError());
 		}
 		return $arregloPersona;
+	}
+
+    public function insertar()
+	{
+		$base = new bdViajeFeliz();
+		$resp = false;
+		$consultaInsertar = "INSERT INTO Pasajero (pdocumento, pnombre, papellido, ptelefono, idviaje) 
+				VALUES (" . $this->getNumeroDocumento() . ",'" . $this->getApellido() . "','" . $this->getNombre() . "','" . $this->getNumeroTelefono() . "','" . $this->getIdviaje() ."')";
+
+		if ($base->Iniciar()) {
+			if ($base->Ejecutar($consultaInsertar)) {
+				$resp =  true;
+			} else {
+				$this->setmensajeoperacion($base->getError());
+			}
+		} else {
+			$this->setmensajeoperacion($base->getError());
+		}
+		return $resp;
 	}
 
 

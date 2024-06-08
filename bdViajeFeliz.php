@@ -68,10 +68,10 @@ class bdViajeFeliz{
         $resp  = false;
         unset($this->ERROR);
         $this->QUERY = $consulta;
-        if(  $this->RESULT = mysqli_query( $this->CONEXION,$consulta)){
+        if($this->RESULT = mysqli_query($this->CONEXION,$consulta)){
             $resp = true;
         } else {
-            $this->ERROR =mysqli_errno( $this->CONEXION).": ". mysqli_error( $this->CONEXION);
+            $this->ERROR =mysqli_errno($this->CONEXION).": ". mysqli_error($this->CONEXION);
         }
         return $resp;
     }
@@ -112,7 +112,7 @@ class bdViajeFeliz{
             $id = mysqli_insert_id();
             $resp =  $id;
         } else {
-            $this->ERROR =mysqli_errno( $this->CONEXION) . ": " . mysqli_error( $this->CONEXION);
+            $this->ERROR =mysqli_errno($this->CONEXION) . ": " . mysqli_error($this->CONEXION);
            
         }
     return $resp;

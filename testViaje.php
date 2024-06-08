@@ -26,13 +26,6 @@ $ObjViajePredefinido = new Viaje($objResponsableCreado, '787', 'chubut', 150, $c
 $objViajeCrear = new viaje(0, 0, 0, 0, []);
 $elViajePersonalizadoEstaCreado = false;
 
-$bd = new bdViajeFeliz();
-if ($bd->Iniciar()) {
-    echo "conexion exitosa\n";
-} else {
-    echo "error en la conexion\n";
-}
-
 do {
     echo "\ningrese una opcion:\n
     1) modificar datos de un viaje precargado\n
