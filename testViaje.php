@@ -1,5 +1,5 @@
 <?php
-include_once 'bdViajeFeliz.php';
+
 include_once 'classViaje.php';
 include_once 'classPasajero.php';
 include_once 'classResponsableV.php';
@@ -16,8 +16,16 @@ $objPersona9 = new Pasajero('Roberto', 'Rodríguez', '12545678', 9286743);
 $objPersona10 = new Pasajero('Sandra', 'Sánchez', '34567890', 182736);
 
 $coleccionPasajeros = [
-    $objPersona1, $objPersona2, $objPersona3, $objPersona4, $objPersona5,
-    $objPersona6, $objPersona7, $objPersona8, $objPersona9, $objPersona10
+    $objPersona1,
+    $objPersona2,
+    $objPersona3,
+    $objPersona4,
+    $objPersona5,
+    $objPersona6,
+    $objPersona7,
+    $objPersona8,
+    $objPersona9,
+    $objPersona10
 ];
 
 $objResponsableCreado = new ResponsableV('1312', '88', 'valentin', 'bustos villar');
