@@ -1,9 +1,17 @@
 <?php
 
-include_once 'Viaje.php';
-include_once 'Pasajero.php';
-include_once 'ResponsableV.php';
+// include_once 'Viaje.php';
+// include_once 'Pasajero.php';
+// include_once 'ResponsableV.php';
 include_once 'bdViajeFeliz.php';
+
+$objBaseDatos = new bdViajeFeliz();
+if ($objBaseDatos->Iniciar()) {
+    echo "conexion exitosa\n";
+} else {
+    echo "error en la conexion\n";
+}
+
 
 $objPersona1 = new Pasajero('pedro', 'morales', '981723', 981263);
 $objPersona2 = new Pasajero('Ana', 'García', '12345678', 289374);
@@ -35,12 +43,7 @@ $ObjViajePredefinido = new Viaje($objResponsableCreado, '787', 'chubut', 150, $c
 $objViajeCrear = new viaje(0, 0, 0, 0, []);
 $elViajePersonalizadoEstaCreado = false;
 
-$objBaseDatos = new bdViajeFeliz();
-if ($objBaseDatos->Iniciar()) {
-    echo "conexion exitosa\n";
-} else {
-    echo "error en la conexion\n";
-}
+
 
 do {
     echo "\ningrese una opcion:\n
