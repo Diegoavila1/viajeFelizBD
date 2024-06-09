@@ -14,12 +14,12 @@ class Persona {
         $this->ptelefono = '';
     }
 
-    public function cargar($row2)
+    public function cargar($datos)
 	{
-		$this->setNombre($row2['nombre']);
-		$this->setApellido($row2['apellido']);
-		$this->setDocumento($row2['documento']);
-		$this->setPTelefono($row2['ptelefono']);
+		$this->setNombre($datos['nombre']);
+		$this->setApellido($datos['apellido']);
+		$this->setDocumento($datos['documento']);
+		$this->setPTelefono($datos['ptelefono']);
 	}
 
     public function setNombre($nombre) {
@@ -85,6 +85,33 @@ class Persona {
 		return $resp;
 	}
     
+	public function listar($condicion = "")
+	{
+		$arregloPersona = null;
+		$base = new bdViajeFeliz();
+		$consultaPersonas = "Select * from persona";
+		if ($condicion != "") {
+			$consultaPersonas = $consultaPersonas . ' where ' . $condicion;
+		}
+		$consultaPersonas .= " order by apellido ";
+		//echo $consultaPersonas;
+		if ($base->Iniciar()) {
+			if ($base->Ejecutar($consultaPersonas)) {
+				$arregloPersona = array();
+				while ($row2 = $base->Registro()) {
+					$perso = new Persona();
+					$perso->cargar($row2);
+					array_push($arregloPersona, $perso);
+				}
+			} else {
+				$this->setmensajeoperacion($base->getError());
+			}
+		} else {
+			$this->setmensajeoperacion($base->getError());
+		}
+		return $arregloPersona;
+	}
+
 	public function insertar()
 	{
 		$base = new bdViajeFeliz();
@@ -104,33 +131,7 @@ class Persona {
 		return $resp;
 	}
 
-    public function listar($condicion = "")
-	{
-		$arregloPersona = null;
-		$base = new bdViajeFeliz();
-		$consultaPersonas = "Select * from persona";
-		if ($condicion != "") {
-			$consultaPersonas = $consultaPersonas . ' where ' . $condicion;
-		}
-		$consultaPersonas .= " order by apellido ";
-		//echo $consultaPersonas;
-		if ($base->Iniciar()) {
-			if ($base->Ejecutar($consultaPersonas)) {
-				$arregloPersona = array();
-				while ($row2 = $base->Registro()) {
-                    // $row2 = $base->Registro();
-					$perso = new Persona();
-					$perso->cargar($row2);
-					array_push($arregloPersona, $perso);
-				}
-			} else {
-				$this->setmensajeoperacion($base->getError());
-			}
-		} else {
-			$this->setmensajeoperacion($base->getError());
-		}
-		return $arregloPersona;
-	}
+    
 
     public function modificar()
 	{
@@ -166,13 +167,7 @@ class Persona {
 		return $resp;
 	}
 
-    
-
-
-
-
-    
     public function __toString() {
-        return "apellido: " . $this->getNombre() . ", apellido: " . $this->getApellido() . ", documento: " . $this->getdocumento();
+        return "apellido: " . $this->getNombre() . "\napellido: " . $this->getApellido() . "\ndocumento: " . $this->getdocumento(). "\nptelefono: " . $this->getPTelefono();
     }
 }
