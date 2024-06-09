@@ -15,8 +15,8 @@ class ResponsableV extends Persona
     public function cargar($datos)
     {
         parent::cargar($datos);
-        $this->setNumeroEmpleado($datos['numeroEmpleado']);
-        $this->setNumeroLicencia($datos['numeroLicencia']);
+        $this->setNumeroEmpleado($datos['numeroEmpleado']);  //en la base de datos esta como rnumeroempleado
+        $this->setNumeroLicencia($datos['numeroLicencia']);  //en la base de datos esta como rnumerolicencia
     }
 
     public function getNumeroEmpleado()

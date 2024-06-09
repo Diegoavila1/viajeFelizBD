@@ -23,16 +23,16 @@ public function getIdViaje() {
     return $this->idViaje;
 }
 
-/*
-    public function Buscar($id_funcion)
+
+    public function Buscar($idViaje)
     {
         $base = new bdViajeFeliz();
-        $consulta = "SELECT * FROM obra WHERE id_funcion = " . $id_funcion;
+        $consulta = "SELECT * FROM pasajero WHERE idViaje = " . $idViaje;
         $resp = false;
         if ($base->Iniciar()) {
             if ($base->Ejecutar($consulta)) {
                 if ($row2 = $base->Registro()) {
-                    parent::Buscar($id_funcion);
+                    parent::Buscar($idViaje);
                     $resp = true;
                 }
             } else {
@@ -46,19 +46,19 @@ public function getIdViaje() {
 
 
     public function listar($condicion){
-        $arregloObra = [];
+        $arregloPasajero = [];
         $base = new bdViajeFeliz();
-        $consulta = "SELECT * FROM obra ";
+        $consulta = "SELECT * FROM pasajero ";
         if ($condicion != "") {
             $consulta = $consulta . ' WHERE ' . $condicion;
         }
         if ($base->Iniciar()) {
             if ($base->Ejecutar($consulta)) {
-                $arregloObra = array();
+                $arregloPasajero = array();
                 while ($row2 = $base->Registro()) {
-                    $obj = new Obra();
-                    $obj->Buscar($row2['id_funcion']);
-                    array_push($arregloObra, $obj);
+                    $obj = new pasajero();
+                    $obj->Buscar($row2['idViaje']);
+                    array_push($arregloPasajero, $obj);
                 }
             } else {
                 $this->setmensajeoperacion($base->getError());
@@ -66,18 +66,18 @@ public function getIdViaje() {
         } else {
             $this->setmensajeoperacion($base->getError());
         }
-        return $arregloObra;
+        return $arregloPasajero;
     }
 
-
+    
+    /*
     public function insertar()
     {
         $base = new bdViajeFeliz();
         $resp = false;
 
         if (parent::insertar()) {
-            $consultaInsertar = "INSERT INTO obra(id_funcion)
-				VALUES (" . parent::getIdFuncion() . ")";
+            $consultaInsertar = "INSERT INTO pasajero(idViaje) VALUES (" . parent::getIdViaje() . ")";
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($consultaInsertar)) {
                     $resp = true;
@@ -92,14 +92,14 @@ public function getIdViaje() {
     }
 
 
-    public function eliminar($id_funcion)
+    public function eliminar($idViaje)
     {
         $base = new bdViajeFeliz();
         $resp = false;
         if ($base->Iniciar()) {
-            $consultaBorra = "DELETE FROM obra WHERE id_funcion = " . parent::getIdFuncion();
+            $consultaBorra = "DELETE FROM pasajero WHERE idViaje = " . parent::getIdViaje();
             if ($base->Ejecutar($consultaBorra)) {
-                if (parent::eliminar($id_funcion)) {
+                if (parent::eliminar($idViaje)) {
                     $resp = true;
                 }
             } else {
@@ -110,7 +110,8 @@ public function getIdViaje() {
         }
         return $resp;
     }
-*/
+
+    */
 public function __toString()
 {
     $resp = parent::__toString();
