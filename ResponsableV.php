@@ -48,10 +48,11 @@ class ResponsableV extends Persona
         $this->numeroLicienciaInt = $newNumeroLicencia;
     }
 
+    //mod
     public function Buscar($documento)
 	{
 		$base = new bdViajeFeliz();
-		$consultaPersona = "Select * from responsable where documento=" . $documento;
+		$consultaPersona = "Select * from responsable where rdocumento=" . $documento;
 		$resp = false;
 		if ($base->Iniciar()) {
 			if ($base->Ejecutar($consultaPersona)) {
@@ -70,6 +71,7 @@ class ResponsableV extends Persona
 		return $resp;
 	}
 
+    //mod
     public function listar($condicion = "")
 	{
 		$arregloPersona = null;
@@ -97,17 +99,72 @@ class ResponsableV extends Persona
 		return $arregloPersona;
 	}
 
+    public function insertar()
+    {
+        $base = new bdViajeFeliz();
+        $resp = false;
 
+        //cuando insertamos el orden no es docu,nroEmpleado,nroLicencia sino que en la base de datos es al revez no se si influye , el parent que hay llama a la primaria como foreanea
+        if (parent::insertar()) {
+            $consultaInsertar = "INSERT INTO responsable(rdocumento,rnumeroempleado , rnumerolicencia,)VALUES (" . parent::getdocumento() . ", '" . $this->getNumeroEmpleado() . "', " . $this->getNumeroLicencia() . ")";
+            if ($base->Iniciar()) {
+                if ($base->Ejecutar($consultaInsertar)) {
+                    $resp = true;
+                } else {
+                    $this->setmensajeoperacion($base->getError());
+                }
+            } else {
+                $this->setmensajeoperacion($base->getError());
+            }
+        }
+        return $resp;
+    }
 
+//modificado
+    public function modificar()
+    {
+        $resp = false;
+        $base = new bdViajeFeliz();
+        if (parent::modificar()) {
+            $consultaModifica = "UPDATE responsable SET rnumeroempleado = '" . $this->getNumeroEmpleado() . "', rnumerolicencia = " . $this->getNumeroLicencia() . "WHERE rdocumento = " . parent::getDocumento();
+            if ($base->Iniciar()) {
+                if ($base->Ejecutar($consultaModifica)) {
+                    $resp = true;
+                } else {
+                    $this->setmensajeoperacion($base->getError());
+                }
+            } else {
+                $this->setmensajeoperacion($base->getError());
+            }
+        }
+        return $resp;
+    }
 
+    //modficado
+    public function eliminar($rdocumento)
+    {
+        $base = new bdViajeFeliz();
+        $resp = false;
+        if ($base->Iniciar()) {
+            $consultaBorra = "DELETE FROM responsable WHERE rdocumento = " . parent::getdocumento();
+            if ($base->Ejecutar($consultaBorra)) {
+                if (parent::eliminar($rdocumento)) {
+                    $resp = true;
+                }
+            } else {
+                $this->setmensajeoperacion($base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion($base->getError());
+        }
+        return $resp;
+    }
 
 
     public function __toString()
     {
         return "
 Datos del resposable: 
-Nombre/s: {$this->getNombre()}
-Apellido/s: {$this->getApellido()} 
 Numero de empleado: {$this->getNumeroEmpleado()}
 Numero de licencia: {$this->getNumeroLicencia()}";
     }

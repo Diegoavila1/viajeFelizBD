@@ -72,6 +72,116 @@ class Viaje
         return count($this->getPasajeros());
     }
 
+    
+    public function Buscar($id_teatro)
+    {
+        $base = new BaseDatos();
+        $consultaPersona = "SELECT * FROM  WHERE id_teatro = " . $id_teatro;
+        $resp = false;
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($consultaPersona)) {
+                if ($row2 = $base->Registro()) {
+                    $this->setIdTeatro($id_teatro);
+                    $this->setNombre($row2['nombre']);
+                    $this->setDireccion($row2['direccion']);
+                    $resp = true;
+                }
+            } else {
+                $this->setmensajeoperacion($base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion($base->getError());
+        }
+        return $resp;
+    }
+    /*
+        public function listar($condicion)
+    {
+        $arregloTeatro = [];
+        $base = new BaseDatos();
+        $consultaTeatro = "SELECT * FROM teatro ";
+        if ($condicion != "") {
+            $consultaTeatro = $consultaTeatro . ' WHERE ' . $condicion;
+        }
+        $consultaTeatro .= " ORDER BY nombre";
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($consultaTeatro)) {
+                $arregloTeatro = [];
+                while ($row2 = $base->Registro()) {
+                    $id_teatro = $row2['id_teatro'];
+                    $teatro = new Teatro();
+                    $teatro->buscar($id_teatro);
+                    array_push($arregloTeatro, $teatro);
+                }
+            } else {
+                $this->setmensajeoperacion($base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion($base->getError());
+        }
+        return $arregloTeatro;
+    }
+
+    public function insertar()
+    {
+        $base = new BaseDatos();
+        $resp = false;
+        $nombre = $this->getNombre();
+        $direccion = $this->getDireccion();
+
+        $consulta_insertar = "INSERT INTO teatro(nombre, direccion)
+		VALUES ('{$nombre}', '{$direccion}')";
+
+        //debbugin
+        //echo "\n".$consulta_insertar."\n";
+        if ($base->Iniciar()) {
+            if ($id = $base->devuelveIDInsercion($consulta_insertar)) {
+                $this->setIdTeatro($id);
+                $resp = true;
+            } else {
+                $this->setMensajeOperacion($base->getError());
+            }
+        } else {
+            $this->setMensajeOperacion($base->getError());
+        }
+        return $resp;
+    }
+
+    public function modificar($id_teatro)
+    {
+        $resp = false;
+        $base = new BaseDatos();
+        $consultaModifica = "UPDATE teatro SET nombre = '" . $this->getNombre() . "', direccion = '" . $this->getDireccion() . "' WHERE id_teatro = " . $id_teatro;
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($consultaModifica)) {
+                $resp = true;
+            } else {
+                $this->setmensajeoperacion($base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion($base->getError());
+        }
+        return $resp;
+    }
+
+
+    public function eliminar()
+    {
+        $base = new BaseDatos();
+        $resp = false;
+        if ($base->Iniciar()) {
+            $consultaBorra = "DELETE FROM teatro WHERE id_teatro = " . $this->getIdTeatro();
+            if ($base->Ejecutar($consultaBorra)) {
+                $resp = true;
+            } else {
+                $this->setmensajeoperacion($base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion($base->getError());
+        }
+        return $resp;
+    }    
+    */
     public function encontrarPosicionPasajero($dniParaRastrear)
     {
         $existePasajero = -1;

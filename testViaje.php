@@ -207,21 +207,6 @@ do {
                 if (count($coleccionPasajeros) == 0) {
                     array_push($coleccionPasajeros, new Pasajero($nombre, $apellido, $dni, $numTelefono));
                     $objViajeCrear = new viaje(0, 0, 0, 0, $coleccionPasajeros);
-                    /*
-                    $datosPersona = ['nombre' =>$nombre,
-                    'apellido'=>$apellido,
-                    'documento'=>$dni,
-                    'ptelefono'=> $numTelefono];
-
-                    $datosPasajero = ['nombre' =>$nombre,
-                    'apellido'=>$apellido,
-                    'documento'=>$dni,
-                    'ptelefono'=> $numTelefono,
-                    'idViaje'=>?]; es auto incrementable pero nose si ponerlo
-
-                    $newObjPasajero->cargar($datosPasajero);
-                    $newObjPasajero->insertar();
-                    */
                     echo "se agrego al pasajero exitosamente :)\n";
                 } else if ($objViajeCrear->encontrarPosicionPasajero($dni) == -1) {
                     array_push($coleccionPasajeros, new Pasajero($nombre, $apellido, $dni, $numTelefono));
@@ -241,26 +226,13 @@ do {
             echo "Su nuevo numero de empleado: ";
             $numeroEmpleado = trim(fgets(STDIN));
             $objResponsableCreado = new ResponsableV($numeroEmpleado, $numeroLicencia, $nombre, $apellido);
-            /*
-            $datosPersona = ['nombre' =>$nombre, 'apellido'=>$apellido, 'documento'=>$dni,'ptelefono'=> $numTelefono];
-            $datosResponsable = [
-            'nombre' =>$nombre,
-            'apellido'=>$apellido,
-            'documento'=>$dni,
-            'ptelefono'=> $numTelefono,
-            'numeroEmpleado'=>$numeroEmpleado,
-            'numeroLicencia'=>$numeroLicencia];
-
-            $objResponsableCreado->cargar($datosResponsable);
-            $objResponsableCreado->insertar();
-            */
             echo "\nPor ultimo vamos a definir el viaje:\n";
             echo "\nIngrese el codigo del vuelo: ";
             $codigoViaje = trim(fgets(STDIN));
             echo "\nIngrese el destino del viaje: ";
             $destino = trim(fgets(STDIN));
             $objViajeCrear = new Viaje($objResponsableCreado, $codigoViaje, $destino, $cantidadMaximaPersonas, $coleccionPasajeros);
-            
+                
             echo "\n//////////////////////////////////////\nSu viaje fue creado exitosamente :)\n//////////////////////////////////////";
             $elViajePersonalizadoEstaCreado = true;
             break;

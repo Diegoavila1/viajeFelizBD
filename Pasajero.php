@@ -14,7 +14,12 @@ class Pasajero extends Persona
     parent::cargar($datos); 
     $this->setIdViaje($datos[4]);
     }
-
+    /*
+    public function cargar($datos) {
+        parent::cargar($datos); 
+        $this->setIdViaje($datos['idViaje']);
+        }
+    */
 public function setIdViaje($idViaje) {
     $this->idViaje = $idViaje;
 }
@@ -23,7 +28,7 @@ public function getIdViaje() {
     return $this->idViaje;
 }
 
-
+//modificado
     public function Buscar($idViaje)
     {
         $base = new bdViajeFeliz();
@@ -44,7 +49,7 @@ public function getIdViaje() {
         return $resp;
     }
 
-
+//modificado
     public function listar($condicion){
         $arregloPasajero = [];
         $base = new bdViajeFeliz();
@@ -70,7 +75,7 @@ public function getIdViaje() {
     }
 
     
-    /*
+//modificado
     public function insertar()
     {
         $base = new bdViajeFeliz();
@@ -92,6 +97,7 @@ public function getIdViaje() {
     }
 
 
+//modificado
     public function eliminar($idViaje)
     {
         $base = new bdViajeFeliz();
@@ -111,7 +117,7 @@ public function getIdViaje() {
         return $resp;
     }
 
-    */
+    
 public function __toString()
 {
     $resp = parent::__toString();

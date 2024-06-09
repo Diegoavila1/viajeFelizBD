@@ -137,7 +137,7 @@ class Persona {
 	{
 		$resp = false;
 		$base = new bdViajeFeliz();
-		$consultaModifica = "UPDATE persona SET apellido='" . $this->getApellido() . "',nombre='" . $this->getNombre() . "' ,telefono='" . $this->getPTelefono() . "' WHERE documento=" . $this->getDocumento();
+		$consultaModifica = "UPDATE persona SET apellido='" . $this->getApellido() . "',nombre='" . $this->getNombre() . "' ,telefono='" . $this->getPTelefono() . "' WHERE documento=" . $this->getdocumento();
 		if ($base->Iniciar()) {
 			if ($base->Ejecutar($consultaModifica)) {
 				$resp =  true;
@@ -155,7 +155,7 @@ class Persona {
 		$base = new bdViajeFeliz();
 		$resp = false;
 		if ($base->Iniciar()) {
-			$consultaBorra = "DELETE FROM persona WHERE documento=" . $this->getDocumento();
+			$consultaBorra = "DELETE FROM persona WHERE documento=" . $this->getdocumento();
 			if ($base->Ejecutar($consultaBorra)) {
 				$resp =  true;
 			} else {
